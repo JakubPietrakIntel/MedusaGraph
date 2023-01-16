@@ -1,17 +1,17 @@
 
 import torch
-import torch.nn.functional as F
-from torch_geometric.data import DataLoader
+# import torch.nn.functional as F
+from torch_geometric.loader import DataLoader
 from torch_geometric.nn import GATConv, global_mean_pool
-from scipy.spatial import distance
-from sklearn.metrics import f1_score
-from sklearn.metrics import mean_squared_error
+# from scipy.spatial import distance
+# from sklearn.metrics import f1_score
+# from sklearn.metrics import mean_squared_error
 from sklearn import metrics
 
-import sys
+# import sys
 import os
 import argparse
-import math
+# import math
 import numpy as np
 from time import time
 from tqdm import tqdm
@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 from dataset import PDBBindCoor
 from model import loss_fn_kd, get_soft_label, loss_fn_dir, loss_fn_cos
-import plot
+from plot import rmsd_hist
 
 TH = 0.03
 
@@ -332,11 +332,11 @@ def test(loader, epoch):
     if fn + tn > 0:
         avg_unselected_rmsd_ = sum(avg_unselected_rmsd) / (fn + tn) * 100.0
 
-    plot.rmsd_hist(np.array(avg_selected_rmsd)*100,
+    rmsd_hist(np.array(avg_selected_rmsd)*100,
                    os.path.join(args.plt_dir, f"rmsd_hist_final"),
                    xlim=20,
                    title='Poses Selected by Pose-selection Model')
-    plot.rmsd_hist(np.array(avg_unselected_rmsd)*100,
+    rmsd_hist(np.array(avg_unselected_rmsd)*100,
                    os.path.join(args.plt_dir, f"rmsd_hist_unselect_final"),
                    xlim=20,
                    title='Poses Selected by Pose-selection Model')

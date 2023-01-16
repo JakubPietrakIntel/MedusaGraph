@@ -1,4 +1,7 @@
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
+
 import numpy as np
 
 def rmsd_hist(x, path, num_bins = 50, xlim =None, title=''):
